@@ -21,8 +21,9 @@ function displayWeather(data) {
     if (data.cod !== 200) {
         weatherBox.innerHTML = `<p style='color: #ffb3b3;'>${data.message}</p>`;
         weatherDetails.innerHTML = "";
-        weatherBox.style.display = "block";
-        weatherDetails.style.display = "none";
+        weatherBox.classList.remove("hidden");
+        weatherDetails.classList.add("hidden");
+        if (welcomeMsg) welcomeMsg.classList.add("hidden");
         return;
     }
     const icon = getWeatherIcon(data.weather[0].main);
@@ -43,15 +44,15 @@ function displayWeather(data) {
             <p>Wind</p>
         </div>
     `;
-    weatherBox.style.display = "block";
-    weatherDetails.style.display = "flex";
-    if (welcomeMsg) welcomeMsg.style.display = "none";
+    weatherBox.classList.remove("hidden");
+    weatherDetails.classList.remove("hidden");
+    if (welcomeMsg) welcomeMsg.classList.add("hidden");
 }
 
 function showWelcome() {
-    weatherBox.style.display = "none";
-    weatherDetails.style.display = "none";
-    if (welcomeMsg) welcomeMsg.style.display = "block";
+    weatherBox.classList.add("hidden");
+    weatherDetails.classList.add("hidden");
+    if (welcomeMsg) welcomeMsg.classList.remove("hidden");
 }
 
 searchButton.addEventListener("click", () => {
@@ -60,18 +61,19 @@ searchButton.addEventListener("click", () => {
         showWelcome();
         return;
     }
-    weatherBox.innerHTML = "Loading...";
-    weatherBox.style.display = "block";
-    weatherDetails.style.display = "none";
-    if (welcomeMsg) welcomeMsg.style.display = "none";
+    weatherBox.innerHTML = `<div class="loader"><div class="loader-spinner"></div></div>`;
+    weatherBox.classList.remove("hidden");
+    weatherDetails.classList.add("hidden");
+    if (welcomeMsg) welcomeMsg.classList.add("hidden");
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${APIkey}`)
         .then(response => response.json())
         .then(data => displayWeather(data))
         .catch(() => {
             weatherBox.innerHTML = `<p style='color: #ffb3b3;'>Unable to fetch weather data.</p>`;
             weatherDetails.innerHTML = "";
-            weatherBox.style.display = "block";
-            weatherDetails.style.display = "none";
+            weatherBox.classList.remove("hidden");
+            weatherDetails.classList.add("hidden");
+            if (welcomeMsg) welcomeMsg.classList.add("hidden");
         });
 });
 
