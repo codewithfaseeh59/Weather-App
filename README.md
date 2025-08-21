@@ -8,8 +8,8 @@ A clean and responsive web application that provides real-time weather informati
 
 ## Live Demo & Repository
 
-- **Live Demo:** 
-- **Repository:** 
+- **Live Demo:** https://codewithfaseeh59.github.io/Weather-App/
+- **Repository:** https://github.com/codewithfaseeh59/Weather-App
 
 ---
 
